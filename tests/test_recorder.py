@@ -50,7 +50,7 @@ def test_task():
     assert task_object.task == task
     assert task_object.start == start
     assert task_object.end == end
-    assert task_object.GetDuration() == 7
+    assert task_object.get_duration() == 7
 
 
 def test_task_raises_exception_if_start_is_later_than_end():
@@ -86,8 +86,8 @@ def test_add_records():
     personal_holiday = create_personal_holiday()
     recorder = Recorder()
 
-    recorder.AddRecord(task)
-    recorder.AddRecord(bank_holiday)
-    recorder.AddRecord(personal_holiday)
+    recorder.add_record(task)
+    recorder.add_record(bank_holiday)
+    recorder.add_record(personal_holiday)
 
     assert len(recorder.records) == 3

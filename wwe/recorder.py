@@ -9,7 +9,7 @@ class Record:
 class Task(Record):
     category = "task"
 
-    # Allow weekends
+    # Allow weekend days
 
     def __init__(self, start: datetime.datetime, end: datetime.datetime,
                  project="no project", task="no task description"):
@@ -28,7 +28,7 @@ class Task(Record):
         result += f" }}"
         return result
 
-    def GetDuration(self):
+    def get_duration(self):
         total_hours = self.duration.total_seconds() / 3600
         return total_hours
 
@@ -58,10 +58,10 @@ class Recorder:
     def __init__(self):
         self.records = []
 
-    def AddRecord(self, record: Record):
+    def add_record(self, record: Record):
         self.records.append(record)
 
-    def ValidateRecord(self, record: Record):
+    def validate_record(self, record: Record):
         # Do the depp validation when you create the record, but
         # not when you add it. Later you only need to validate
         # that the created record is a Task, a BankHoliday or a
@@ -77,12 +77,12 @@ class Recorder:
     # def ValidatePersonalHoliday(self, record: PersonalHoliday):
     #     pass
 
-    def RemoveDuplicatedRecords(self):
+    def remove_duplicated_records(self):
         # Ensure there are not records duplicated in self.records
         pass
 
-    def GetRecordsBetweenDateTimes(self, start: datetime.datetime,
-                                   end: datetime.datetime):
+    def get_records_between_date_times(self, start: datetime.datetime,
+                                       end: datetime.datetime):
         # Is not point to get is only **from** one date, as you want to
         # exclude the future holiday days
 
