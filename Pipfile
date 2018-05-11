@@ -4,10 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pylint = "*"
-python-toggl = "*"
+tapioca-toggl = "*"
 
 [dev-packages]
+"autopep8" = "*"
+"flake8" = "*"
+pytest = "*"
+rope = "*"
 
 [requires]
 python_version = "3.6"
