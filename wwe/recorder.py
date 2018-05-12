@@ -28,6 +28,13 @@ class Task(Record):
         result += f" }}"
         return result
 
+    def __hash__(self):
+        result = hash(self.category)
+        result += hash(self.project)
+        result += hash(self.task)
+        result += hash(self.start) ^ hash(self.end)
+        return result
+
     def get_duration(self):
         total_hours = self.duration.total_seconds() / 3600
         return total_hours
@@ -46,6 +53,9 @@ class BankHoliday(Holiday):
     def __init__(self, date):
         self.date = date
 
+    def __hash__(self):
+        return hash(self.category) + hash(self.date)
+
 
 class PersonalHoliday(Holiday):
     category = "personal holiday"
@@ -53,13 +63,18 @@ class PersonalHoliday(Holiday):
     def __init__(self, date):
         self.date = date
 
+    def __hash__(self):
+        return hash(self.category) + hash(self.date)
+
+
 
 class Recorder:
     def __init__(self):
-        self.records = []
+        self.records = set()
 
-    def add_record(self, record: Record):
-        self.records.append(record)
+    def add(self, record: Record):
+        if isinstance(record, Record):
+            self.records.add(record)
 
     def validate_record(self, record: Record):
         # Do the depp validation when you create the record, but

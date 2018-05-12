@@ -79,14 +79,36 @@ def create_bank_holiday(date=datetime(2018, 1, 12)):
     return bank_holiday
 
 
-def test_add_records():
+# def test_task_repl():
+#     task = create_task()
+#     task
+
+#     assert len(recorder.records) == 3
+
+
+def test_records_cannot_be_added_twice():
+    recorder = Recorder()
     task = create_task()
     bank_holiday = create_bank_holiday()
     personal_holiday = create_personal_holiday()
-    recorder = Recorder()
 
-    recorder.add_record(task)
-    recorder.add_record(bank_holiday)
-    recorder.add_record(personal_holiday)
+    recorder.add(task)
+    recorder.add(task)
+    recorder.add(bank_holiday)
+    recorder.add(bank_holiday)
+    recorder.add(personal_holiday)
+    recorder.add(personal_holiday)
 
     assert len(recorder.records) == 3
+
+
+def test_only_add_records_to_recorder():
+    recorder = Recorder()
+    random_object = {}
+    task = create_task()
+
+    recorder.add(random_object)
+    assert len(recorder.records) == 0
+
+    recorder.add(task)
+    assert len(recorder.records) == 1
