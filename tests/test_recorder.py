@@ -37,7 +37,7 @@ def test_personal_holiday(personal_holiday_date):
     assert personal_holiday.date == personal_holiday_date
 
 
-def test_task():
+def test_task_is_created_with_required_properties():
     project = "Bot Builder"
     task = "General"
     start = datetime(2018, 5, 12, 9, 0, 0)
@@ -61,22 +61,21 @@ def test_task_raises_exception_if_start_is_later_than_end():
         Task(start=start, end=end)
 
 
-def create_task():
-    task_start_date = datetime(2018, 1, 10, 16)
-    task_end_date = datetime(2018, 1, 10, 17)
-    task = Task(task_start_date, task_end_date)
+def create_task(
+        start=datetime(2018, 1, 10, 16),
+        end=datetime(2018, 1, 10, 17),
+        project="no project", task="created with create_task"):
+    task = Task(start, end, project, task)
     return task
 
 
-def create_personal_holiday():
-    personal_holiday_date = datetime(2018, 1, 11)
-    personal_holiday = PersonalHoliday(personal_holiday_date)
+def create_personal_holiday(date=datetime(2018, 1, 11)):
+    personal_holiday = PersonalHoliday(date)
     return personal_holiday
 
 
-def create_bank_holiday():
-    bank_holiday_date = datetime(2018, 1, 12)
-    bank_holiday = BankHoliday(bank_holiday_date)
+def create_bank_holiday(date=datetime(2018, 1, 12)):
+    bank_holiday = BankHoliday(date)
     return bank_holiday
 
 
