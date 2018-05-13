@@ -84,7 +84,9 @@ class Recorder:
     def __init__(self):
         self.records = set()
 
-    def add(self, record: Record):
+    def add(self, *args):
+        """Add one or more records"""
+        for record in args:
         if isinstance(record, Record):
             self.records.add(record)
 
