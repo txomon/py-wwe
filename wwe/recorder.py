@@ -94,18 +94,11 @@ class Recorder:
     def add(self, *args):
         """Add one or more records"""
         for record in args:
-        if isinstance(record, Record):
-            self.records.add(record)
-
-    def validate_record(self, record: Record):
-        # Do the depp validation when you create the record, but
-        # not when you add it. Later you only need to validate
-        # that the created record is a Task, a BankHoliday or a
-        # PersonalHoliday type.
-        pass
+            if isinstance(record, Record):
+                self.records.add(record)
 
     def get_records_between(self, start: datetime.datetime,
-                                       end: datetime.datetime):
+                            end: datetime.datetime):
         """Return records between start and end dates, both included"""
         result = set()
         for record in self.records:
