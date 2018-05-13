@@ -97,8 +97,8 @@ class Recorder:
             if isinstance(record, Record):
                 self.records.add(record)
 
-    def get_records_between(self, start: datetime.datetime,
-                            end: datetime.datetime):
+    def records_between(self, start: datetime.datetime,
+                        end: datetime.datetime):
         """Return records between start and end dates, both included"""
         result = set()
         for record in self.records:

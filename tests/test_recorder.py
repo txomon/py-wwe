@@ -159,7 +159,7 @@ def test_get_records_between_dates():
     r = Recorder()
 
     r.add(bh1, bh2, bh3, bh4)
-    actual_result = r.get_records_between(start_date, end_date)
+    actual_result = r.records_between(start_date, end_date)
     expected_result = set()
     expected_result.add(bh2)
     expected_result.add(bh3)
