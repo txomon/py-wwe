@@ -19,7 +19,8 @@ class Record:
 
         return result
 
-    def GetDuration(self):
+    def get_duration(self):
+        """Return record duration"""
         return self.duration
 
 
@@ -45,7 +46,8 @@ class Task(Record):
         result += hash(self.start) ^ hash(self.end)
         return result
 
-    def get_duration(self):
+    def get_duration(self) -> float:
+        """Return record duration"""
         total_hours = self.duration.total_seconds() / 3600
         return total_hours
 

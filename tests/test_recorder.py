@@ -25,7 +25,7 @@ def test_bank_holiday(bank_holiday_date):
     bank_holiday = BankHoliday(bank_holiday_date)
 
     assert bank_holiday.category == 'bank holiday'
-    assert bank_holiday.GetDuration() == 7.5
+    assert bank_holiday.get_duration() == 7.5
     assert bank_holiday.date == bank_holiday_date
 
 
@@ -33,7 +33,7 @@ def test_personal_holiday(personal_holiday_date):
     personal_holiday = PersonalHoliday(personal_holiday_date)
 
     assert personal_holiday.category == 'personal holiday'
-    assert personal_holiday.GetDuration() == 7.5
+    assert personal_holiday.get_duration() == 7.5
     assert personal_holiday.date == personal_holiday_date
 
 
