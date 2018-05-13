@@ -2,6 +2,23 @@ import datetime
 
 
 class Record:
+
+    def __repr__(self):
+        result = self.__class__.__name__ + " instance: { "
+
+        props = self.__dict__
+        print(self.__class__.__dict__.keys())
+        keys = props.keys()
+
+        for i, key in enumerate(keys):
+            result += f"{key}: {props[key]}"
+            if i < len(props) - 1:
+                result += ", "
+
+        result += " }"
+
+        return result
+
     def GetDuration(self):
         return self.duration
 
@@ -20,13 +37,6 @@ class Task(Record):
         self.start = start
         self.end = end
         self.duration = end-start
-
-    def __repr__(self):
-        result = f"Task instance: {{ "
-        result += f"project: {self.project}, task: {self.task},"
-        result += f"date: {self.start}, duration: {self.duration}"
-        result += f" }}"
-        return result
 
     def __hash__(self):
         result = hash(self.category)

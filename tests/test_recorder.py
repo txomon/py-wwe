@@ -69,21 +69,46 @@ def create_task(
     return task
 
 
-def create_personal_holiday(date=datetime(2018, 1, 11)):
-    personal_holiday = PersonalHoliday(date)
-    return personal_holiday
-
-
 def create_bank_holiday(date=datetime(2018, 1, 12)):
     bank_holiday = BankHoliday(date)
     return bank_holiday
 
 
-# def test_task_repl():
-#     task = create_task()
-#     task
+def create_personal_holiday(date=datetime(2018, 1, 11)):
+    personal_holiday = PersonalHoliday(date)
+    return personal_holiday
 
-#     assert len(recorder.records) == 3
+
+def test_task_repr():
+    task = create_task()
+
+    actual_repr = repr(task)
+    expected_repr = "Task instance: { project: no project, "
+    expected_repr += "task: created with create_task, "
+    expected_repr += "start: 2018-01-10 16:00:00, end: 2018-01-10 17:00:00, "
+    expected_repr += "duration: 1:00:00 }"
+
+    assert expected_repr == actual_repr
+
+
+def test_bank_holiday_repr():
+    bank_holiday = create_bank_holiday()
+
+    actual_repr = repr(bank_holiday)
+    expected_repr = "BankHoliday instance: { "
+    expected_repr += "date: 2018-01-12 00:00:00 }"
+
+    assert expected_repr == actual_repr
+
+
+def test_personal_holiday_repr():
+    personal_holiday = create_personal_holiday()
+
+    actual_repr = repr(personal_holiday)
+    expected_repr = "PersonalHoliday instance: { "
+    expected_repr += "date: 2018-01-11 00:00:00 }"
+
+    assert expected_repr == actual_repr
 
 
 def test_records_cannot_be_added_twice():
