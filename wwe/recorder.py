@@ -106,3 +106,26 @@ class Recorder:
             if start <= date and date <= end:
                 result.add(record)
         return result
+
+    def total_worked_hours(self, date: datetime.datetime):
+        """Returns total hours worked from a given date"""
+        pass
+
+    def total_hours_to_work(self, start: datetime.datetime,
+                            end: datetime.datetime):
+        """Return total hours to be worked between two given dates"""
+        pass
+
+    def hours_today_on_end(self, end=datetime.datetime):
+        """Return total hours to be worked/left until a given datetime"""
+        pass
+
+    def personal_holidays_left(self):
+        """Return number of personal holidays left"""
+        # Add the total personal holidays you can take in the config file
+        pass
+
+    def summary(self):
+        """Return current work hours summary"""
+        # {total: 37.5, worked: 28.5, left: 3.2}
+        pass
