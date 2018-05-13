@@ -137,3 +137,31 @@ def test_only_add_records_to_recorder():
 
     recorder.add(task)
     assert len(recorder.records) == 1
+
+
+def test_record_get_date():
+    task = create_task()
+    bank_holiday = create_bank_holiday()
+    personal_holiday = create_personal_holiday()
+
+    assert task.get_date is not None
+    assert bank_holiday.get_date is not None
+    assert personal_holiday.get_date is not None
+
+
+def test_get_records_between_dates():
+    start_date = datetime(2018, 1, 11)
+    end_date = datetime(2018, 1, 14)
+    bh1 = create_bank_holiday(date=datetime(2018, 1, 10))
+    bh2 = create_bank_holiday(date=datetime(2018, 1, 12))
+    bh3 = create_bank_holiday(date=datetime(2018, 1, 14))
+    bh4 = create_bank_holiday(date=datetime(2018, 1, 16))
+    r = Recorder()
+
+    r.add(bh1, bh2, bh3, bh4)
+    actual_result = r.get_records_between(start_date, end_date)
+    expected_result = set()
+    expected_result.add(bh2)
+    expected_result.add(bh3)
+
+    assert expected_result == actual_result

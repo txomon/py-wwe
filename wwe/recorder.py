@@ -23,6 +23,14 @@ class Record:
         """Return record duration"""
         return self.duration
 
+    def get_date(self):
+        """Return record date"""
+        class_name = self.__class__.__name__
+        if class_name == 'Task':
+            return self.start
+        else:
+            return self.date
+
 
 class Task(Record):
     category = "task"
@@ -79,7 +87,6 @@ class PersonalHoliday(Holiday):
         return hash(self.category) + hash(self.date)
 
 
-
 class Recorder:
     def __init__(self):
         self.records = set()
@@ -97,26 +104,12 @@ class Recorder:
         # PersonalHoliday type.
         pass
 
-    # def ValidateTask(self, record: Task):
-    #     pass
-
-    # def ValidateBankHoliday(self, record: BankHoliday):
-    #     pass
-
-    # def ValidatePersonalHoliday(self, record: PersonalHoliday):
-    #     pass
-
-    def remove_duplicated_records(self):
-        # Ensure there are not records duplicated in self.records
-        pass
-
-    def get_records_between_date_times(self, start: datetime.datetime,
+    def get_records_between(self, start: datetime.datetime,
                                        end: datetime.datetime):
-        # Is not point to get is only **from** one date, as you want to
-        # exclude the future holiday days
-
-        # Filter records in self.records array based on the dates
-        # Think about how to filter the return from this method to get
-        # the holidays in a separate array and the working days in a
-        # separate array
-        pass
+        """Return records between start and end dates, both included"""
+        result = set()
+        for record in self.records:
+            date = record.get_date()
+            if start <= date and date <= end:
+                result.add(record)
+        return result
