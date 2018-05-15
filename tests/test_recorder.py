@@ -190,3 +190,26 @@ def test_personal_holidays_used():
     expected_result = 2
 
     assert expected_result == actual_result
+
+
+def test_personal_holidays_left_no_total_set():
+    ph = create_personal_holiday(date=datetime(2018, 1, 11))
+    r = Recorder()
+    r.add(ph)
+
+    with pytest.raises(Exception):
+        r.personal_holidays_left()
+
+
+def test_personal_holidays_left():
+    ph1 = create_personal_holiday(date=datetime(2018, 1, 11))
+    ph2 = create_personal_holiday(date=datetime(2018, 1, 12))
+    r = Recorder()
+    r.total_personal_holidays = 10
+
+    r.add(ph1)
+    r.add(ph2)
+    actual_result = r.personal_holidays_left()
+    expected_result = 8
+
+    assert expected_result == actual_result

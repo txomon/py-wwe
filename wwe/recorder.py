@@ -120,9 +120,17 @@ class Recorder:
         """Return total hours to be worked/left until a given datetime"""
         pass
 
+    def personal_holidays_left(self):
+        """Return number of personal holidays left"""
+        total = self.total_personal_holidays
+        if total is None:
+            raise Exception("no total_personal_holidays set")
+        used = self.personal_holidays_used()
+        return total - used
+
     def personal_holidays_used(self):
         """Return number of personal holidays used"""
-        # Add the total personal holidays you can take in the config file
+        # TODO: Add the total personal holidays you can take in the config file
         result = 0
         for record in self.records:
             if isinstance(record, PersonalHoliday):
