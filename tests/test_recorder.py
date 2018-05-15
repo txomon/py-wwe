@@ -165,3 +165,28 @@ def test_get_records_between_dates():
     expected_result.add(bh3)
 
     assert expected_result == actual_result
+
+
+def test_no_personal_holidays_used():
+    bh = create_bank_holiday(date=datetime(2018, 1, 10))
+    r = Recorder()
+    r.add(bh)
+    actual_result = r.personal_holidays_used()
+    expected_result = 0
+
+    assert expected_result == actual_result
+
+
+def test_personal_holidays_used():
+    bh = create_bank_holiday(date=datetime(2018, 1, 10))
+    ph1 = create_personal_holiday(date=datetime(2018, 1, 11))
+    ph2 = create_personal_holiday(date=datetime(2018, 1, 12))
+    r = Recorder()
+
+    r.add(bh)
+    r.add(ph1)
+    r.add(ph2)
+    actual_result = r.personal_holidays_used()
+    expected_result = 2
+
+    assert expected_result == actual_result

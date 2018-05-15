@@ -120,10 +120,14 @@ class Recorder:
         """Return total hours to be worked/left until a given datetime"""
         pass
 
-    def personal_holidays_left(self):
-        """Return number of personal holidays left"""
+    def personal_holidays_used(self):
+        """Return number of personal holidays used"""
         # Add the total personal holidays you can take in the config file
-        pass
+        result = 0
+        for record in self.records:
+            if isinstance(record, PersonalHoliday):
+                result += 1
+        return result
 
     def summary(self):
         """Return current work hours summary"""
