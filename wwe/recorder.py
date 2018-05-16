@@ -129,17 +129,25 @@ class Recorder:
                 result.add(record)
         return result
 
-    def total_worked_hours(self, start: datetime.datetime):
+    def total_worked_hours(self, start: datetime.datetime,
+                           end: datetime.datetime):
         """Returns total hours worked from a given date"""
+        # TODO (BUG):
+        # You need an end date, otherwise, the future holidays will be also
+        # added to the days off, and they shouldn't. Add a unit test to cover
+        # this case.
         if len(self.records) == 0:
             raise Exception("no records in recorder")
         if start is None:
             raise TypeError("start cannot be None")
-        if start > datetime.datetime.now():
-            raise Exception("start date cannot be later than current time")
+        if end is None:
+            raise TypeError("end cannot be None")
+        if start > end:
+            raise Exception("start date cannot be later than end")
 
         result = 0
-        for record in self.records:
+        records_subset = self.records_between(start, end)
+        for record in records_subset:
             if isinstance(record, Task):
                 duration = record.get_duration()
                 result += duration
@@ -158,8 +166,12 @@ class Recorder:
         work_hours = work_days * self.work_day
         return work_hours
 
-    def hours_today_on_end(self, end=datetime.datetime):
-        """Return total hours to be worked/left until a given datetime"""
+    def hour_balance_on_end(self, start: datetime.datetime,
+                            end: datetime.datetime):
+        """Return total hours to be worked/left between two given datetimes"""
+        result = 0
+        to_work = self.total_hours_to_work(start, end)
+        worked = self.total_worked_hours(start, end)
         pass
 
     def personal_holidays_left(self):

@@ -223,33 +223,28 @@ def test_total_worked_hours_without_record():
         r.total_worked_hours(start)
 
 
-def test_total_worked_hours_with_null_start_date():
-    start = None
+@pytest.mark.parametrize("start,end", [
+    (None, datetime(2018, 1, 1)),
+    (datetime(2018, 1, 1), None),
+    (datetime(2018, 1, 3), datetime(2018, 1, 1)),
+])
+def test_total_worked_hours_with_null_arguments(start, end):
     t = create_task()
     r = Recorder()
     r.add(t)
 
     with pytest.raises(Exception):
-        r.total_worked_hours(start)
-
-
-def test_total_worked_hours_with_future_start_date():
-    start = datetime(2200, 1, 1)
-    t = create_task()
-    r = Recorder()
-    r.add(t)
-
-    with pytest.raises(Exception):
-        r.total_worked_hours(start)
+        r.total_worked_hours(start, end)
 
 
 def test_total_worked_hours_with_expected_date():
     start = datetime(2018, 1, 1)
-    t = create_task()
+    end = datetime(2018, 1, 3)
+    t = create_task(start=datetime(2018, 1, 2, 8), end=datetime(2018, 1, 2, 9))
     r = Recorder()
     r.add(t)
 
-    actual_result = r.total_worked_hours(start)
+    actual_result = r.total_worked_hours(start, end)
     expected_result = 1.0
 
     assert expected_result == actual_result
@@ -280,3 +275,17 @@ def test_total_hours_to_work_with_holidays_and_weekend():
     expected_result = (8 - (2 + 1 + 1)) * 7.5
 
     assert expected_result == actual_result
+
+
+def test_hour_balance_on_end_no_date():
+    pass
+
+# def test_hour_balance_on_end():
+#     start = datetime(2018, 4, 3)
+#     end = datetime(2018, 4, 6)
+#     r = Recorder()
+#     actual_result = r.hour_balance_on_end(start, end)
+#     expected_result = -4 * 7.5
+
+#     assert expected_result == actual_result
+#     pass
