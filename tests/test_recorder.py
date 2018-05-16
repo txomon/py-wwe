@@ -272,11 +272,11 @@ def test_total_hours_to_work_with_holidays_and_weekend():
     bh = create_bank_holiday(date=datetime(2018, 4, 2))  # Easter Monday
     ph = create_personal_holiday(date=datetime(2018, 4, 3))  # Easter Monday
     r = Recorder()
+
     r.add(bh)
     r.add(ph)
-
     actual_result = r.total_hours_to_work(start, end)
-    # 5 working days + 2 weekend days + 1 bank holiday + 1 personal holiday
-    expected_result = 30
+    # 8 real days - (2 weekend days + 1 bank holiday + 1 personal holiday)
+    expected_result = (8 - (2 + 1 + 1)) * 7.5
 
     assert expected_result == actual_result

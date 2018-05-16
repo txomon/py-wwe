@@ -95,6 +95,24 @@ class Recorder:
         # Implement a factory for the tests
         self.work_day = 7.5
 
+    def _bank_holidays(self, start: datetime.datetime, end: datetime.datetime):
+        """Return total bank holidays between to given dates"""
+        result = 0
+        if self.records is not None:
+            for record in self.records:
+                if isinstance(record, Holiday):
+                    print(f"holiday found! >> {record}")
+                    result += 1
+
+        return result
+
+    def _weekend_days(self, start: datetime.datetime, end: datetime.datetime):
+        # Calculate number of weekend days between start and end dates
+        day_generator = (start + datetime.timedelta(x+1)
+                         for x in range((end - start).days))
+        result = sum(1 for day in day_generator if day.weekday() > 4)
+        return result
+
     def add(self, *args):
         """Add one or more records"""
         for record in args:
@@ -130,25 +148,11 @@ class Recorder:
     def total_hours_to_work(self, start: datetime.datetime,
                             end: datetime.datetime):
         """Return total hours to be worked between two given dates"""
-        # Discount:
-        # - bank holidays
-        # - personal holidays
-        # - weekends (unless there are tasks in the weekend)
         total_days = (end.date() - start.date()).days + 1
 
         days_off = 0
-        if self.records is not None:
-            for record in self.records:
-                if isinstance(record, Holiday):
-                    print(f"holiday found! >> {record}")
-                    days_off += 1
-                    continue
-
-        # Calculate number of weekend days between start and end dates
-        day_generator = (start + datetime.timedelta(x+1)
-                         for x in range((end - start).days))
-        weekends = sum(1 for day in day_generator if day.weekday() > 4)
-        days_off += weekends
+        days_off += self._bank_holidays(start, end)
+        days_off += self._weekend_days(start, end)
 
         work_days = total_days - days_off
         work_hours = work_days * self.work_day
