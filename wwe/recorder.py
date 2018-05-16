@@ -107,9 +107,21 @@ class Recorder:
                 result.add(record)
         return result
 
-    def total_worked_hours(self, date: datetime.datetime):
+    def total_worked_hours(self, start: datetime.datetime):
         """Returns total hours worked from a given date"""
-        pass
+        if len(self.records) == 0:
+            raise Exception("no records in recorder")
+        if start is None:
+            raise TypeError("start cannot be None")
+        if start > datetime.datetime.now():
+            raise Exception("start date cannot be later than current time")
+
+        result = 0
+        for record in self.records:
+            if isinstance(record, Task):
+                duration = record.get_duration()
+                result += duration
+        return result
 
     def total_hours_to_work(self, start: datetime.datetime,
                             end: datetime.datetime):
