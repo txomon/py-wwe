@@ -277,15 +277,24 @@ def test_total_hours_to_work_with_holidays_and_weekend():
     assert expected_result == actual_result
 
 
-def test_hour_balance_on_end_no_date():
+@pytest.mark.parametrize("start,end", [
+    (None, datetime(2018, 1, 1)),
+    (datetime(2018, 1, 1), None),
+    (datetime(2018, 1, 3), datetime(2018, 1, 1)),
+])
+def test_hour_balance_wrong_arguments(start, end):
+    r = Recorder()
+
+    with pytest.raises(Exception):
+        r.hour_balance(start, end)
+
+
+def test_hour_balance():
+    start = datetime(2018, 4, 3)
+    end = datetime(2018, 4, 6)
+    r = Recorder()
+    actual_result = r.hour_balance(start, end)
+    expected_result = -4 * 7.5
+
+    assert expected_result == actual_result
     pass
-
-# def test_hour_balance_on_end():
-#     start = datetime(2018, 4, 3)
-#     end = datetime(2018, 4, 6)
-#     r = Recorder()
-#     actual_result = r.hour_balance_on_end(start, end)
-#     expected_result = -4 * 7.5
-
-#     assert expected_result == actual_result
-#     pass
