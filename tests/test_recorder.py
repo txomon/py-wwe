@@ -255,27 +255,28 @@ def test_total_worked_hours_with_expected_date():
     assert expected_result == actual_result
 
 
-# @pytest.mark.skip(reason="tested function not implemented yet")
 def test_total_hours_to_work_no_holidays_no_weekend():
     start = datetime(2018, 3, 6)
     end = datetime(2018, 3, 8)
     r = Recorder()
 
     actual_result = r.total_hours_to_work(start, end)
-    expected_result = 3
+    expected_result = 3 * 7.5
 
     assert expected_result == actual_result
 
 
-# @pytest.mark.skip(reason="tested function not implemented yet")
 def test_total_hours_to_work_with_holidays_and_weekend():
     start = datetime(2018, 3, 28)
     end = datetime(2018, 4, 4)
     bh = create_bank_holiday(date=datetime(2018, 4, 2))  # Easter Monday
+    ph = create_personal_holiday(date=datetime(2018, 4, 3))  # Easter Monday
     r = Recorder()
     r.add(bh)
+    r.add(ph)
 
     actual_result = r.total_hours_to_work(start, end)
-    expected_result = 37.5  # 5 working days + 2 weekend days + 1 bank holiday
+    # 5 working days + 2 weekend days + 1 bank holiday + 1 personal holiday
+    expected_result = 30
 
     assert expected_result == actual_result

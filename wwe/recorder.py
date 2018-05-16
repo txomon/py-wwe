@@ -134,18 +134,23 @@ class Recorder:
         # - bank holidays
         # - personal holidays
         # - weekends (unless there are tasks in the weekend)
-        total = (end.date() - start.date()).days + 1
+        total_days = (end.date() - start.date()).days + 1
 
         days_off = 0
         if self.records is not None:
             for record in self.records:
                 if isinstance(record, Holiday):
+                    print(f"holiday found! >> {record}")
                     days_off += 1
                     continue
-                elif record.get_date().weekday() > 4:
-                    # Discount the weekends!
-                    days_off += 1
-        work_days = total - days_off
+
+        # Calculate number of weekend days between start and end dates
+        day_generator = (start + datetime.timedelta(x+1)
+                         for x in range((end - start).days))
+        weekends = sum(1 for day in day_generator if day.weekday() > 4)
+        days_off += weekends
+
+        work_days = total_days - days_off
         work_hours = work_days * self.work_day
         return work_hours
 

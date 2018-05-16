@@ -36,8 +36,10 @@ bank_holiday = BankHoliday(datetime(2018, 5, 13))
 personal_holiday = PersonalHoliday(datetime(2018, 5, 14))
 
 
-start = datetime(2018, 3, 6)
-end = datetime(2018, 3, 8)
+start = datetime(2018, 3, 28)
+end = datetime(2018, 4, 4)
+bh = BankHoliday(date=datetime(2018, 4, 2))  # Easter Monday
 r = Recorder()
+# r.add(bh)
 actual_result = r.total_hours_to_work(start, end)
 print(f"actual_result = {actual_result}")
