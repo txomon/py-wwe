@@ -111,7 +111,7 @@ def test_personal_holiday_repr():
     assert expected_repr == actual_repr
 
 
-def test_records_cannot_be_added_twice():
+def test_records_will_not_be_added_twice():
     recorder = Recorder()
     task = create_task()
     bank_holiday = create_bank_holiday()
@@ -163,5 +163,33 @@ def test_get_records_between_dates():
     expected_result = set()
     expected_result.add(bh2)
     expected_result.add(bh3)
+
+    assert expected_result == actual_result
+
+
+def test_total_worked_hours_with_null_start_date():
+    start = None
+    r = Recorder()
+
+    with pytest.raises(Exception):
+        r.total_worked_hours(start)
+
+
+def test_total_worked_hours_with_future_start_date():
+    start = datetime(2200, 1, 1)
+    r = Recorder()
+
+    with pytest.raises(Exception):
+        r.total_worked_hours(start)
+
+
+def test_total_worked_hours_with_expected_date():
+    start = datetime(2018, 1, 1)
+    t = create_task()
+    r = Recorder()
+    r.add(t)
+
+    actual_result = r.total_worked_hours(start)
+    expected_result = 0
 
     assert expected_result == actual_result
