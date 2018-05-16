@@ -91,6 +91,10 @@ class Recorder:
     def __init__(self):
         self.records = set()
 
+        # TODO pass this in the constructor.
+        # Implement a factory for the tests
+        self.work_day = 7.5
+
     def add(self, *args):
         """Add one or more records"""
         for record in args:
@@ -126,7 +130,24 @@ class Recorder:
     def total_hours_to_work(self, start: datetime.datetime,
                             end: datetime.datetime):
         """Return total hours to be worked between two given dates"""
-        pass
+        # Discount:
+        # - bank holidays
+        # - personal holidays
+        # - weekends (unless there are tasks in the weekend)
+        total = (end.date() - start.date()).days + 1
+
+        days_off = 0
+        if self.records is not None:
+            for record in self.records:
+                if isinstance(record, Holiday):
+                    days_off += 1
+                    continue
+                elif record.get_date().weekday() > 4:
+                    # Discount the weekends!
+                    days_off += 1
+        work_days = total - days_off
+        work_hours = work_days * self.work_day
+        return work_hours
 
     def hours_today_on_end(self, end=datetime.datetime):
         """Return total hours to be worked/left until a given datetime"""
