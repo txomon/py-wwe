@@ -19,6 +19,7 @@ class TogglWrap:
         if self.toggl is not None:
             if start is not None and end is not None:
                 print("fetching your tasks!")
+                self.toggl.time_enties().get().data
                 if client != "" and client is not None:
                     print("filtering tasks by client!")
 
@@ -28,5 +29,4 @@ t = TogglWrap(token=cfg['toggl']['token'])
 start_date = datetime(2018, 2, 5)
 end_date = datetime(2018, 2, 7)
 client = "Software Imaging"
-# t.get_tasks(start_date, end_date, client)
-t.get_tasks(start_date, end_date)
+t.get_tasks(start_date, end_date, client)
