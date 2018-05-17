@@ -14,11 +14,13 @@ class TogglWrap:
             self.toggl = Toggl(access_token=token)
             print("Toggl client wrapper created!")
 
-    def get_tasks(self, start: datetime, end: datetime, client: str):
+    def get_tasks(self, start: datetime, end: datetime, client=""):
         """Return tasks from Toggl between two given dates for a client"""
         if self.toggl is not None:
-
-            print("fetching your tasks!")
+            if start is not None and end is not None:
+                print("fetching your tasks!")
+                if client != "" and client is not None:
+                    print("filtering tasks by client!")
 
 
 cfg = import_config('./config.json')
@@ -26,4 +28,5 @@ t = TogglWrap(token=cfg['toggl']['token'])
 start_date = datetime(2018, 2, 5)
 end_date = datetime(2018, 2, 7)
 client = "Software Imaging"
-t.get_tasks(start_date, end_date, client)
+# t.get_tasks(start_date, end_date, client)
+t.get_tasks(start_date, end_date)
