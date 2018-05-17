@@ -1,11 +1,10 @@
 from tapioca_toggl import Toggl
 from datetime import datetime
+from config import import_config
 
-api = Toggl(access_token="b0769e321caa66ba4cdb946598ba6e88")
-
-me = api.me_with_related_data().get().data()
-
-print(me)
+# api = Toggl(access_token="b0769e321caa66ba4cdb946598ba6e88")
+# me = api.me_with_related_data().get().data()
+# print(me)
 
 
 class TogglWrap:
@@ -18,10 +17,12 @@ class TogglWrap:
     def get_tasks(self, start: datetime, end: datetime, client: str):
         """Return tasks from Toggl between two given dates for a client"""
         if self.toggl is not None:
+
             print("fetching your tasks!")
 
 
-t = TogglWrap(token="b0769e321caa66ba4cdb946598ba6e88")
+cfg = import_config('./config.json')
+t = TogglWrap(token=cfg['toggl']['token'])
 start_date = datetime(2018, 2, 5)
 end_date = datetime(2018, 2, 7)
 client = "Software Imaging"
