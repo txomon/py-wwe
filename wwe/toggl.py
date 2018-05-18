@@ -1,8 +1,8 @@
 # from tapioca_toggl import Toggl
 from datetime import datetime, timedelta
-from config import import_config
-from toggl_api import TogglAPI
-import pprint
+# from wwe.config import import_config
+from wwe.toggl_api import TogglAPI
+# import pprint
 
 # api = Toggl(access_token="b0769e321caa66ba4cdb946598ba6e88")
 # me = api.me_with_related_data().get().data()
@@ -119,19 +119,19 @@ class TogglWrap:
 # TODO: remove stuff below this line and add unit tests
 
 
-cfg = import_config('./config.json')
-t = TogglWrap(token=cfg['toggl']['token'], timezone=cfg['toggl']['timezone'])
-start_date = datetime(2018, 2, 5)
-end_date = datetime(2018, 2, 7)
-client = "Software Imaging"
-kk = t.tasks(start_date, end_date, client)
-pp = pprint.PrettyPrinter(indent=2)
-for x in kk:
-    xx = {
-        "start": x.get("start"),
-        "client": x.get("client"),
-        "project": x.get("project"),
-        "description": x.get("description"),
-    }
-    print('\n')
-    pp.pprint(xx)
+# cfg = import_config('./config.json')
+# t = TogglWrap(token=cfg['toggl']['token'], timezone=cfg['toggl']['timezone'])
+# start_date = datetime(2018, 2, 5)
+# end_date = datetime(2018, 2, 7)
+# client = "Software Imaging"
+# kk = t.tasks(start_date, end_date, client)
+# pp = pprint.PrettyPrinter(indent=2)
+# for x in kk:
+#     xx = {
+#         "start": x.get("start"),
+#         "client": x.get("client"),
+#         "project": x.get("project"),
+#         "description": x.get("description"),
+#     }
+#     print('\n')
+#     pp.pprint(xx)
