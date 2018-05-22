@@ -7,7 +7,8 @@ setup(
     name='wwe',
     version='0.0.1',
     description='',  # TODO
-    long_description=open('README.rst').read(),  # TODO: Remember to change the README to rst markup
+    # TODO: Remember to change the README to rst markup
+    long_description=open('README.rst').read(),
     url='https://github.com/dtgoitia/py-wwe',
     author='David Torralba Goitia',
     author_email='dtgoitia@gmail.com',
@@ -24,4 +25,7 @@ setup(
     zip_safe=False,
     keywords=['toggl'],  # TODO: Add relevant tags
     install_requires=[]  # TODO: Automate extraction from Pipfile?
+    entry_points={
+        "console_scripts": ['wwe=wwe.cli:main'],
+    }
 )
