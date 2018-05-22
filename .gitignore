@@ -4,3 +4,5 @@ config.json
 /.vscode/
 .idea
 *.egg-info/
+*.egg
+/build

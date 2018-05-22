@@ -15,7 +15,7 @@
 # bank_holiday_url = "https://www.gov.uk/bank-holidays.json"
 # r = requests.get(bank_holiday_url)
 # print(r.json())
-from .recorder import Task, Holiday, BankHoliday, PersonalHoliday, Recorder
+from wwe.recorder import Task, Holiday, BankHoliday, PersonalHoliday, Recorder
 from datetime import datetime
 
 task1 = Task(
