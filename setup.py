@@ -23,8 +23,8 @@ setup(
     python_requires='>=3.6',
     include_package_data=True,
     zip_safe=False,
-    keywords=['toggl'],  # TODO: Add relevant tags
-    install_requires=[]  # TODO: Automate extraction from Pipfile?
+    keywords=['toggl'],     # TODO: Add relevant tags
+    install_requires=[],    # TODO: Automate extraction from Pipfile?
     entry_points={
         "console_scripts": ['wwe=wwe.cli:main'],
     }
