@@ -23,7 +23,5 @@ setup(
     include_package_data=True,
     zip_safe=False,
     keywords=['toggl'],  # TODO: Add relevant tags
-    install_requires=[
-        'tapioca-toggl',  # TODO: Automate extraction from Pipfile?
-    ],
+    install_requires=[]  # TODO: Automate extraction from Pipfile?
 )
