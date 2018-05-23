@@ -26,6 +26,9 @@ setup(
     keywords=['toggl'],     # TODO: Add relevant tags
     install_requires=[],    # TODO: Automate extraction from Pipfile?
     entry_points={
-        "console_scripts": ['wwe=wwe.cli:main'],
+        "console_scripts": [
+            'wwe=wwe.cli:main',
+            'wwe2=wwe.cli:main2',
+        ],
     }
 )
