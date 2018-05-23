@@ -3,9 +3,16 @@ from datetime import datetime, timedelta, date
 from wwe.toggl_api import TogglAPI
 # import pprint
 
-# api = Toggl(access_token="b0769e321caa66ba4cdb946598ba6e88")
-# me = api.me_with_related_data().get().data()
-# print(me)
+
+def filter_entries(self, entries, filters):
+    filtered_entries = []
+    for entry in entries:
+        for filter in filters:
+            if not filter(entry):
+                break
+        else:
+            filtered_entries.append(entry)
+    return filtered_entries
 
 
 class TogglWrap:

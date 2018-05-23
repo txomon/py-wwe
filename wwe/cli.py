@@ -75,9 +75,16 @@ def main2():
     print(summary)
 
 
+# "Software Imaging",
+def is_work(client, entry):
+    client.get_clients()
+    if entry['']:
+        pass
+
+
 def main():
-    c = import_config('./config.json')
-    t = TogglWrap(token=c['toggl_token'])
-    print(t.get_today())
-    start = datetime(2018, 2, 5)
-    end = datetime.today()
+    config = import_config('./config.json')
+    toggl_token = config['toggl_token']
+    t = TogglWrap(token=toggl_token)
+    print(t.toggl.workspaces())
+    # print(t.get_today())
