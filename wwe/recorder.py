@@ -63,15 +63,15 @@ class Task(Record):
 class Holiday(Record):
     duration = 7.5
 
-    def __init__(self, date):
-        self.date = date
+    def __init__(self, holiday: datetime.datetime):
+        self.date = holiday
 
 
 class BankHoliday(Holiday):
     category = "bank holiday"
 
-    def __init__(self, date):
-        self.date = date
+    def __init__(self, bank_holiday: datetime.datetime):
+        self.date = bank_holiday
 
     def __hash__(self):
         return hash(self.category) + hash(self.date)
@@ -80,20 +80,17 @@ class BankHoliday(Holiday):
 class PersonalHoliday(Holiday):
     category = "personal holiday"
 
-    def __init__(self, date):
-        self.date = date
+    def __init__(self, personal_holiday: datetime.datetime):
+        self.date = personal_holiday
 
     def __hash__(self):
         return hash(self.category) + hash(self.date)
 
 
 class Recorder:
-    def __init__(self):
+    def __init__(self, working_day: float):
         self.records = set()
-
-        # TODO pass this in the constructor.
-        # Implement a factory for the tests
-        self.work_day = 7.5
+        self.work_day = working_day
 
     def _bank_holidays(self, start: datetime.datetime, end: datetime.datetime):
         """Return total bank holidays between to given dates"""
