@@ -3,6 +3,7 @@ import datetime
 
 UKGOV_TIMESTAMP_FORMAT = '%Y-%m-%d'
 
+
 def gov_uk_bank_holidays() -> set:
     """
     Fetch bank holiday list for England from the UK government endpoint

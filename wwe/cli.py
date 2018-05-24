@@ -45,20 +45,23 @@ def fetch_bank_holidays(start: datetime) -> set:
     return bank_holidays
 
 
-def fetch_personal_holidays(config_personal_holidays: list, start: datetime) -> set:
-    # bank_holidays = Gov
-    bank_holidays = set()
-    return bank_holidays
+def fetch_personal_holidays(config_personal_holidays: list, start: datetime.datetime) -> set:
+    result = set()
+    for day in config_personal_holidays:
+        date = datetime.datetime.strptime(day, '%Y-%m-%d')
+        personal_holiday = PersonalHoliday(date)
+        result.add(personal_holiday)
+    return result
 
 
 def main2():
     config = import_config('./config.json')
     start_date = config['client']['start_date']
-    start = datetime.datetime.strptime(start_date, '%Y-%m-%dT%h:%M:%S.fZ')
-    personal_holidays = config['personal_holidays']
+    start = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+
     tasks = fetch_tasks(config['toggl_token'], start)
     bank_holidays = fetch_bank_holidays(start)
-    personal_holidays = fetch_personal_holidays(start)
+    personal_holidays = fetch_personal_holidays(config['client']['personal_holidays']['scheduled'], start)
 
     r = Recorder(config['working_day_hours'])
     r.add(tasks)
