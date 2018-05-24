@@ -30,16 +30,10 @@ def fetch_tasks(toggl_token: str, start: datetime) -> set:
     return tasks
 
 
-def gov_to_bank_holiday(gov_bank_holiday: str) -> set:
-    date = datetime.strptime(gov_bank_holiday)
-    bank_holiday = BankHoliday(date)
-    return bank_holiday
-
-
 def gov_to_bank_holidays(gov_bank_holidays: set) -> set:
     bank_holidays = set()
     for gov_bank_holiday in gov_bank_holidays:
-        bank_holiday = gov_to_bank_holiday(gov_bank_holiday)
+        bank_holiday = BankHoliday(gov_bank_holiday)
         bank_holidays.add(bank_holiday)
     return bank_holidays
 
