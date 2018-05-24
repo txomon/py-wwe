@@ -31,7 +31,7 @@ def read_toggl_timestamp(text: str):
         ts = datetime.datetime.strptime(ts+tz_2, '%Y-%m-%dT%H:%M:%S%z')
         return ts
     except (ValueError, AttributeError) as e:
-        return None
+        return text
 
 
 def deserialize_toggl(obj):
@@ -49,8 +49,6 @@ def deserialize_toggl(obj):
             new_obj.append(deserialize_toggl(v))
     elif isinstance(obj, str):
         new_obj = read_toggl_timestamp(obj)
-        if new_obj is None:
-            new_obj = obj
     else:
         new_obj = obj
     return new_obj
@@ -73,8 +71,7 @@ class TogglAPI(object):
 
     def clients(self, workspace_id):
         """Get Projects by Workspace ID"""
-        section = f'workspaces/{workspace_id}/clients'
-        return self.get(section=section)
+        return self.get(section=f'workspaces/{workspace_id}/clients')
 
     def get_time_entries(self, start_date: datetime.datetime=None, end_date: datetime.datetime =None):
         """
@@ -103,13 +100,11 @@ class TogglAPI(object):
 
     def projects(self, workspace_id=''):
         """Get Projects by Workspace ID"""
-        section = f'workspaces/{workspace_id}/projects'
-        return self.get(section=section)
+        return self.get(section=f'workspaces/{workspace_id}/projects')
 
     def workspaces(self):
         """Get Workspaces"""
-        section = f'workspaces'
-        return self.get(section=section)
+        return self.get(section='workspace')
 
     def me(self):
-        return self.get(sec)
+        return self.get(section='me')
